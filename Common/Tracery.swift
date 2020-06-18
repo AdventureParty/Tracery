@@ -123,7 +123,16 @@ public class Tracery {
         }
         ruleSet[rule]?.selector = selector
     }
-    
+  
+    public func expandThrowing(_ input: String, maintainContext: Bool = false) throws -> String {
+        if !maintainContext {
+          ruleEvaluationLevel = 0
+          runTimeRuleSet.removeAll()
+          tagStorage.removeAll()
+        }
+        return try eval(input)
+    }
+
     public func expand(_ input: String, maintainContext: Bool = false) -> String {
         do {
             if !maintainContext {
