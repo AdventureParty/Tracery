@@ -37,7 +37,7 @@ class CandidateSelector : XCTestCase {
         
         t.setCandidateSelector(rule: "msg", selector: selector)
         
-        XCTAssertEqual(t.expand("#msg#"), "{msg}")
+        XCTAssertThrowsError(t.expand("#msg#"))
     }
     
     func testRuleCandidateSelectorReturnValueIsAlwaysHonoured() {

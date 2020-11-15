@@ -303,8 +303,7 @@ extension Tracery {
                 case .apply(let nodes):
                     try applyMods(nodes: nodes, mods: mods)
                 case .noExpansion(let reason):
-                    warn("rule '\(name)' expansion failed - \(reason)")
-                    contextStack.contexts[top].result.append("{\(name)}")
+                    throw ParserError.error("rule '\(name)' expansion failed - \(reason)")
                 }
             }
         }
