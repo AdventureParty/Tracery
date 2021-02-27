@@ -242,7 +242,7 @@ extension Tracery {
                 guard let mod = mods[name] else { break }
                 let context = contextStack.contexts[top]
                 trace("🔰 run mod \(name)(\(context.result) params: \(context.args.joined(separator: ",")))")
-                contextStack.contexts[top].result = mod(context.result, context.args)
+                contextStack.contexts[top].result = try mod(context.result, context.args)
                 
               
             case let .createRule(name, values):

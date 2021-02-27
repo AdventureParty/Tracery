@@ -42,7 +42,7 @@ public class Tracery {
     var objects = [String: Any]()
     var ruleSet: [String: RuleMapping]
     var runTimeRuleSet = [String: RuleMapping]()
-    var mods: [String: (String,[String])->String]
+    var mods: [String: (String,[String]) throws->String]
     var tagStorage: TagStorage
     var contextStack: ContextStack
     
@@ -90,12 +90,12 @@ public class Tracery {
         }
     }
     
-    public func add(modifier: String, transform: @escaping (String)->String) {
+    public func add(modifier: String, transform: @escaping (String) throws ->String) {
         if mods[modifier] != nil {
             warn("overwriting modifier '\(modifier)'")
         }
         mods[modifier] = { input, _ in
-            return transform(input)
+            return try transform(input)
         }
     }
     

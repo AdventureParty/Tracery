@@ -136,5 +136,17 @@ class ExtensionMethod: XCTestCase {
         XCTAssertEqual(t.expand("#msg#"), "55555")
     }
     
+    func testModifiersRethrow() {
+      let t = Tracery {
+        [ "msg" : "new york" ]
+      }
+      struct ModifierError: Error { }
+      
+      t.add(modifier: "throw") { _ in
+        throw ModifierError()
+      }
+      
+      XCTAssertThrowsError(try t.expandThrowing("#msg.throw#"))
+    }
 }
 
