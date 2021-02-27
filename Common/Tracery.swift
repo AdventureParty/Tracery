@@ -109,7 +109,7 @@ public class Tracery {
         }
     }
     
-    public func add(method: String, transform: @escaping (String, [String])->String) {
+    public func add(method: String, transform: @escaping (String, [String]) throws ->String) {
         if mods[method] != nil {
             warn("overwriting method '\(method)'")
         }

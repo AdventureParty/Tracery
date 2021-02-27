@@ -148,5 +148,22 @@ class ExtensionMethod: XCTestCase {
       
       XCTAssertThrowsError(try t.expandThrowing("#msg.throw#"))
     }
+  
+    func testMethodRethrows() {
+      let t = Tracery {
+        [ "msg" : "hello world" ]
+      }
+      enum MethodError: Error, Equatable {
+        case thrown(String)
+      }
+      
+      t.add(method: "throw") { input, args in
+        throw MethodError.thrown(args[0])
+      }
+      
+      XCTAssertThrowsError(try t.expandThrowing("#msg.throw(error)#")) { error in
+        XCTAssertEqual(error as? MethodError, MethodError.thrown("error"))
+      }
+    }
 }
 
