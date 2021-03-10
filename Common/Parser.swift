@@ -147,9 +147,9 @@ enum ParserNode : CustomStringConvertible {
 
 
 
-enum ParserError : Error, CustomStringConvertible {
+public enum ParserError : Error, CustomStringConvertible {
     case error(String)
-    var description: String {
+    public var description: String {
         switch self {
         case let .error(msg): return msg
         }
